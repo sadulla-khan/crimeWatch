@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "604997180205",
+    "firebase_url": "https://crimewatch-4e631-default-rtdb.firebaseio.com",
+    "project_id": "crimewatch-4e631",
+    "storage_bucket": "crimewatch-4e631.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604997180205:android:d7f01c6501d6cb661f51a4",
+        "android_client_info": {
+          "package_name": "com.example.crime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQd2DmsIgTGAo9jUuim-WugPqx3ISJN7o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

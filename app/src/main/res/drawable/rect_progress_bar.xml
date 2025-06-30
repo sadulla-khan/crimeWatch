@@ -1,0 +1,22 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <!-- Background layer (fixed color) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#D3D3D3" /> <!-- Background color -->
+            <corners android:radius="6dp" /> <!-- Match radius to inner border if needed -->
+        </shape>
+    </item>
+
+    <!-- Progress layer (solid color with useLevel set to true) -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="#9C27B0" /> <!-- Progress color -->
+                <corners android:radius="6dp" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>
