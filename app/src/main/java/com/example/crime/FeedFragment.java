@@ -60,18 +60,30 @@ public class FeedFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 reports.clear();
                 usernames.clear();
+                List<String> profileImages = new ArrayList<>();
+
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                    String username = userSnapshot.getKey().replace("_", ".");
+                    String name = "Unknown";
+                    String profileImage = null;
+
+                    DataSnapshot infoSnap = userSnapshot.child("info");
+                    if (infoSnap.exists()) {
+                        name = infoSnap.child("name").getValue(String.class);
+                        profileImage = infoSnap.child("profileImage").getValue(String.class);
+                    }
 
                     DataSnapshot reportSnap = userSnapshot.child("reports");
                     for (DataSnapshot rep : reportSnap.getChildren()) {
                         Report r = rep.getValue(Report.class);
                         if (r != null) {
                             reports.add(r);
-                            usernames.add(username);
+                            usernames.add(name);
+                            profileImages.add(profileImage);
                         }
                     }
                 }
+
+                adapter.setProfileImages(profileImages);  // custom method
                 adapter.notifyDataSetChanged();
             }
 
@@ -81,4 +93,6 @@ public class FeedFragment extends Fragment {
             }
         });
     }
+
+
 }

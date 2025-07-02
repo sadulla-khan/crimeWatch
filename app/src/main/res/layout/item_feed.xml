@@ -17,8 +17,19 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
     <!-- Username -->
+        <ImageView
+            android:id="@+id/image_profile"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_background" />
     <TextView
         android:id="@+id/text_username"
         android:layout_width="wrap_content"
@@ -27,6 +38,7 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@android:color/black"/>
+        </LinearLayout>
 
     <!-- Crime Title -->
     <TextView
@@ -59,6 +71,45 @@
 
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
+        >
+
+        <TextView
+            android:id="@+id/text_concern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Concern"
+            android:drawableStart="@android:drawable/ic_dialog_alert"
+            android:drawablePadding="6dp"
+            android:background="@drawable/rounded_grey"
+            android:padding="4dp"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_marginEnd="8dp" />
+        <View
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comment"
+            android:drawableStart="@android:drawable/ic_menu_edit"
+            android:drawablePadding="6dp"
+            android:background="@drawable/rounded_grey"
+            android:padding="4dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+    </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"

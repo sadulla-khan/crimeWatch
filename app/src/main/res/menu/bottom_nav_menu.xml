@@ -6,15 +6,15 @@
     <item android:title="Report"
         android:icon="@drawable/baseline_list_alt_24"
         android:id="@+id/report"/>
-    <item android:title="Home"
+    <item android:title="Feed"
         android:icon="@drawable/baseline_home_24"
-        android:id="@+id/home"/>
+        android:id="@+id/feed"/>
     <item android:title="Map"
         android:icon="@drawable/baseline_add_location_24"
         android:id="@+id/map"/>
-    <item android:title="Feed"
+    <item android:title="Notifications"
         android:icon="@drawable/baseline_feed_24"
-        android:id="@+id/feed"/>
+        android:id="@+id/notifications"/>
 
 
 </menu>

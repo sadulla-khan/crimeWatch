@@ -3,8 +3,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- WebView showing the map -->
     <WebView
         android:id="@+id/webViewMap"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <!-- Overlay input panel -->
+    <LinearLayout
+        android:id="@+id/inputPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:background="#AAFFFFFF"
+        android:elevation="5dp">
+
+        <EditText
+            android:id="@+id/editCrimeType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Crime Type (e.g. Robbery)" />
+
+        <EditText
+            android:id="@+id/editDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date (YYYY-MM-DD)" />
+
+        <EditText
+            android:id="@+id/editTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Time (HH:mm)" />
+
+        <Button
+            android:id="@+id/btnPredict"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Predict and Show" />
+    </LinearLayout>
+
 </FrameLayout>

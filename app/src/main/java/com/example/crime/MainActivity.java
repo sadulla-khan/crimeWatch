@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         // User exists, no need to add
                         Log.d(null,"User already exists: " + dataSnapshot.child("info").getValue());
                         replaceFragment(new HomeFragment(),"HomeFragment");
-                        bottomNavigationView.setSelectedItemId(R.id.home);
+                        bottomNavigationView.setSelectedItemId(R.id.feed);
 
                     } /*else {
                         gotoActivity(CollectInfoActivity.class);
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new ProfileFragment(),"ProfileFragment");
             } else if (item.getItemId() == R.id.report) {
                 replaceFragment(new ReportsFragment(),"ReportFragment");
-            } else if (item.getItemId() == R.id.home) {
+            } else if (item.getItemId() == R.id.notifications) {
                 replaceFragment(new HomeFragment(),"HomeFragment");
             } else if (item.getItemId() == R.id.map) {
                 replaceFragment(new MapFragment(),"MapFragment");

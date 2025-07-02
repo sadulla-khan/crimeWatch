@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".ReportsFragment">
+    tools:context=".ReportsFragment"
+    android:layout_marginTop="20dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_reports"

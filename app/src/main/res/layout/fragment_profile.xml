@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".ProfileFragment">
+    tools:context=".ProfileFragment"
+    android:layout_marginTop="20dp">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -33,6 +34,7 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/profileImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/baseline_account_circle_24"
@@ -40,6 +42,7 @@
             android:background="@drawable/circle_background"/>
 
         <Button
+            android:id="@+id/changeProfileImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Change"
@@ -55,13 +58,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Name"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"/>
+
 
         <EditText
             android:layout_width="0dp"
@@ -72,9 +69,11 @@
             android:textSize="18sp"
             android:textColor="@color/black"
             android:padding="8dp"
-            android:enabled="false"/>
+            android:hint="name"
+           />
 
         <Button
+            android:id="@+id/changeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Change"
@@ -142,6 +141,7 @@
             android:enabled="false"/>
 
         <Button
+            android:id="@+id/changeAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Change"
@@ -152,21 +152,12 @@
 
 
 
-    <Button
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Changes"
-        android:backgroundTint="@color/purple"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="24dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Discard Changes"
-        android:backgroundTint="@android:color/darker_gray"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="8dp"/>
 
     <Button
         android:layout_width="match_parent"

@@ -9,75 +9,104 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <!-- Esri Leaflet Geocoder CSS & JS -->
-    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css" />
-    <script src="https://unpkg.com/esri-leaflet/dist/esri-leaflet.js"></script>
-    <script src="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.js"></script>
-
     <style>
         html, body, #map {
-          height: 100%;
-          margin: 0;
-          padding: 0;
-        }
-        .geocoder-control {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          z-index: 1000;
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
 <body>
+
+<input id="search" type="text" placeholder="Search location..."
+       style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+              z-index: 1000; width: 80%; max-width: 500px;
+              padding: 12px 16px; font-size: 18px; border-radius: 8px; border: 1px solid #ccc;" />
+
+
+<button id="confirmBtn"
+        style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+               z-index: 1000; padding: 12px 24px;
+               font-size: 18px; background-color: #007BFF; color: white;
+               border: none; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+    Confirm Location
+</button>
+
+
 <div id="map"></div>
 
 <script>
-    var map = L.map('map').setView([23.8103, 90.4125], 13); // Default to Dhaka
+    var map = L.map('map', {
+    minZoom: 11,
+    maxZoom: 18,
+    maxBounds: [
+        [23.60, 90.25], // Southwest corner
+        [23.95, 90.55]  // Northeast corner
+    ],
+    maxBoundsViscosity: 1.0 // Fully prevents dragging outside
+}).setView([23.8103, 90.4125], 13); // Default to Dhaka
 
-    // Add tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+map.zoomControl.setPosition('bottomleft');
+    var marker;
+    let selectedLatLng = null;
+    let selectedAddress = "";
+
+    // Tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    var marker;
 
-    // Add Esri Geosearch control
-    var searchControl = L.esri.Geocoding.geosearch({
-      position: 'topleft',
-      placeholder: 'Search for places...',
-      useMapBounds: false
-    }).addTo(map);
 
-    var results = L.layerGroup().addTo(map);
+    // Search functionality
+    document.getElementById('search').addEventListener('change', function () {
+        var query = this.value;
 
-    searchControl.on('results', function(data) {
-      results.clearLayers();
-      if (marker) map.removeLayer(marker);
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&viewbox=90.35,23.90,90.50,23.65&bounded=1`, {
+            headers: {
+                'User-Agent': 'CrimeWatchApp/1.0 (your@email.com)'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                var lat = parseFloat(data[0].lat);
+                var lon = parseFloat(data[0].lon);
+                var latlng = L.latLng(lat, lon);
 
-      if (data.results.length > 0) {
-        var latlng = data.results[0].latlng;
-        marker = L.marker(latlng).addTo(map);
-
-        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`)
-          .then(response => response.json())
-          .then(data => {
-            let address = data.display_name;
-            Android.sendLocation(latlng.lat.toString(), latlng.lng.toString(), address);
-          });
-      }
+                map.setView(latlng, 15); // Just move map — no marker, no sending
+            } else {
+                alert("No results found in Dhaka.");
+            }
+        })
+        .catch(err => console.error(err));
     });
 
-    // Manual map click handler
+    // Click to place marker
     map.on('click', function(e) {
-      if (marker) map.removeLayer(marker);
-      marker = L.marker(e.latlng).addTo(map);
+        if (marker) map.removeLayer(marker);
+        marker = L.marker(e.latlng).addTo(map);
 
-      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`)
-        .then(response => response.json())
-        .then(data => {
-          let address = data.display_name;
-          Android.sendLocation(e.latlng.lat.toString(), e.latlng.lng.toString(), address);
-        });
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`)
+            .then(response => response.json())
+            .then(data => {
+                selectedLatLng = e.latlng;
+                selectedAddress = data.display_name;
+            });
+    });
+
+    // Confirm Button logic
+    document.getElementById('confirmBtn').addEventListener('click', function () {
+        if (selectedLatLng && selectedAddress) {
+            Android.sendLocation(
+                selectedLatLng.lat.toString(),
+                selectedLatLng.lng.toString(),
+                selectedAddress
+            );
+        } else {
+            alert("Please click on the map to select a location.");
+        }
     });
 </script>
 </body>
